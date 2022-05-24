@@ -1,0 +1,24 @@
+{
+  "name": "respira-confianza-mqtt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deskobar/respira-confianza-mqtt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deskobar/respira-confianza-mqtt/issues"
+  },
+  "homepage": "https://github.com/deskobar/respira-confianza-mqtt#readme",
+  "dependencies": {
+    "aedes": "^0.47.0",
+    "mqtt": "^4.3.7"
+  }
+}
