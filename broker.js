@@ -29,6 +29,7 @@ aedes.on('clientDisconnect', function (client) {
 
 // fired when a message is published
 aedes.on('publish', async function (packet, client) {
-    console.table({packet, client})
+    const payload = packet.payload.toString()
+    console.log({packet, payload, client})
 })
 
