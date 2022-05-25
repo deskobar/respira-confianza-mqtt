@@ -1,3 +1,5 @@
+const axios = require("axios");
+const {API_URL} = require("./config");
 const aedes = require('aedes')()
 const server = require('net').createServer(aedes.handle)
 const port = 1883
@@ -30,6 +32,16 @@ aedes.on('clientDisconnect', function (client) {
 // fired when a message is published
 aedes.on('publish', async function (packet, client) {
     const payload = packet.payload.toString()
-    console.log({packet, payload, client})
+    const endpoint = `${API_URL}/station-readings`
+    const body = {
+        privateKey: "$2b$10$LKZDhmBFW9Pl3xOxzlnK8OyYvBF9gsMjmvZpi0BZv4X0o2ceLNh3m",
+        HR: 10000
+    }
+    try {
+        const response = await axios.post(endpoint, body)
+        console.log(response)
+    } catch (e) {
+        console.log(e)
+    }
 })
 
