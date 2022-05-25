@@ -20,6 +20,7 @@
   "dependencies": {
     "aedes": "^0.47.0",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "mqtt": "^4.3.7"
   }
 }
