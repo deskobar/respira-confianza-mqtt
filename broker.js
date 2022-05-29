@@ -31,15 +31,15 @@ aedes.on('clientDisconnect', function (client) {
 
 // fired when a message is published
 aedes.on('publish', async function (packet, client) {
-    const payload = packet.payload.toString()
     const endpoint = `${API_URL}/station-readings`
     const body = {
         privateKey: "$2b$10$LKZDhmBFW9Pl3xOxzlnK8OyYvBF9gsMjmvZpi0BZv4X0o2ceLNh3m",
         HR: 10000
     }
     try {
-        const response = await axios.post(endpoint, body)
-        console.log(response)
+        console.log({packet, client})
+        // const response = await axios.post(endpoint, body)
+        console.log('todo ok')
     } catch (e) {
         console.log(e)
     }
