@@ -37,8 +37,12 @@ aedes.on('publish', async function (packet, client) {
         HR: 10000
     }
     try {
-        console.log({packet, client})
+        const { topic, payload } = packet
+        console.log('payloadAsString', payload.toString())
+        console.log('topic', topic)
+        console.log('client', client)
         // const response = await axios.post(endpoint, body)
+        console.log('Client \x1b[31m' + (client ? client.id : 'BROKER_' + aedes.id) + '\x1b[0m has published', packet.payload.toString(), 'on', packet.topic, 'to broker', aedes.id)
         console.log('todo ok')
     } catch (e) {
         console.log(e)
