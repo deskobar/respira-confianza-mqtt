@@ -47,7 +47,7 @@ aedes.on('publish', async function (packet, client) {
         console.log('Client \x1b[31m' + (client ? client.id : 'BROKER_' + aedes.id) + '\x1b[0m has published', packet.payload.toString(), 'on', packet.topic, 'to broker', aedes.id)
         console.log('todo ok')
     } catch (e) {
-        console.log(e)
+        console.log('error')
     }
 })
 
