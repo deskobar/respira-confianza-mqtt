@@ -1,5 +1,14 @@
 const axios = require("axios");
 const {API_URL} = require("./config");
+const {Client} = require("aedes/types/client");
+const {
+    ConnackPacket,
+    PingreqPacket,
+    AedesPublishPacket,
+    PublishPacket,
+    PubrelPacket,
+    Subscription
+} = require("aedes/types/packet");
 const aedes = require('aedes')()
 const server = require('net').createServer(aedes.handle)
 const port = 1883
@@ -29,10 +38,6 @@ aedes.on('clientDisconnect', function (client) {
     console.log('Client Disconnected: \x1b[31m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id)
 })
 
-aedes.on('message', function (topic, message) {
-    console.log({topic, message})
-})
-
 // fired when a message is published
 aedes.on('publish', async function (packet, client) {
     const endpoint = `${API_URL}/station-readings`
@@ -55,3 +60,26 @@ aedes.on('publish', async function (packet, client) {
     }
 })
 
+aedes.on ('clientError', function (client, error){
+    console.log('clientError')
+    console.log({client, error})
+})
+
+aedes.on ('connectionError', function (client, error){
+    console.log('connectionError')
+    console.log({client, error})
+})
+
+aedes.on ('connackSent', function (packet, client) {
+    console.log('connactSenk')
+    console.log({packet, client})
+})
+aedes.on ('ping', function (packet, client) {
+    console.log('ping')
+    console.log({packet, client})
+})
+
+aedes.on ('ack', function(packet, client){
+    console.log('ack')
+    console.log({packet, client})
+})
