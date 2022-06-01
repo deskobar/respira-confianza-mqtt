@@ -7,6 +7,7 @@ const port = 1883
 server.listen(port, function () {
     console.log('Aedes listening on port:', port)
     aedes.publish({ topic: '#', payload: "I'm broker " + aedes.id })
+    aedes.publish({topic: 'device/sck/vai4gx/hello', payload: 'hola'})
 })
 
 aedes.on('subscribe', function (subscriptions, client) {
