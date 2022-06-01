@@ -29,6 +29,10 @@ aedes.on('clientDisconnect', function (client) {
     console.log('Client Disconnected: \x1b[31m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id)
 })
 
+aedes.on('message', function (topic, message) {
+    console.log({topic, message})
+})
+
 // fired when a message is published
 aedes.on('publish', async function (packet, client) {
     const endpoint = `${API_URL}/station-readings`
