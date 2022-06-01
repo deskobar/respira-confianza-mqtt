@@ -57,21 +57,21 @@ aedes.on ('clientError', function (client, error){
     console.log({client, error})
 })
 
-aedes.on ('connectionError', function (client, error){
+aedes.on ('connectionError', async function (client, error){
     console.log('connectionError')
     console.log({client, error})
 })
 
-aedes.on ('connackSent', function (packet, client) {
+aedes.on ('connackSent', async function (packet, client) {
     console.log('connactSenk')
     console.log({packet, client})
 })
-aedes.on ('ping', function (packet, client) {
+aedes.on ('ping', async function (packet, client) {
     console.log('ping')
     console.log({packet, client})
 })
 
-aedes.on ('ack', function(packet, client){
+aedes.on ('ack', async function(packet, client){
     console.log('ack')
     console.log({packet, client})
 })
