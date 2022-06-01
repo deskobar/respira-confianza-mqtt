@@ -1,14 +1,5 @@
 const axios = require("axios");
 const {API_URL} = require("./config");
-const {Client} = require("aedes/types/client");
-const {
-    ConnackPacket,
-    PingreqPacket,
-    AedesPublishPacket,
-    PublishPacket,
-    PubrelPacket,
-    Subscription
-} = require("aedes/types/packet");
 const aedes = require('aedes')()
 const server = require('net').createServer(aedes.handle)
 const port = 1883
