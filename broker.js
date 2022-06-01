@@ -7,7 +7,7 @@ const port = 1883
 server.listen(port, function () {
     console.log('Aedes listening on port:', port)
     aedes.publish({ topic: '#', payload: "I'm broker " + aedes.id })
-    aedes.publish({topic: 'device/sck/vai4gx/hello', payload: 'hola'})
+    aedes.publish({topic: '$queue/device/sck/+/+', payload: 'hola'})
 })
 
 aedes.on('subscribe', function (subscriptions, client) {
@@ -63,7 +63,7 @@ aedes.on ('connectionError', async function (client, error){
 })
 
 aedes.on ('connackSent', async function (packet, client) {
-    console.log('connactSenk')
+    console.log('connackSent')
     console.log({packet, client})
 })
 aedes.on ('ping', async function (packet, client) {
