@@ -62,10 +62,6 @@ aedes.on ('connectionError', async function (client, error){
     console.log({client, error})
 })
 
-aedes.on ('connackSent', async function (packet, client) {
-    console.log('connackSent')
-    console.log({packet, client})
-})
 aedes.on ('ping', async function (packet, client) {
     console.log('ping')
     console.log({packet, client})
