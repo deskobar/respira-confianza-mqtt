@@ -41,3 +41,7 @@ aedes.ack = function (packet, client) {
 aedes.connackSent = function (packet, client) {
     console.log({packet, client})
 }
+
+aedes.ack = function (packet, client) {
+    console.log({packet, client})
+}
