@@ -10,6 +10,11 @@ server.listen(port, function () {
     aedes.publish({topic: '$queue/device/sck/+/+', payload: 'hola'})
 })
 
+aedes.on('subscribe', function (subscriptions, client) {
+    console.log('MQTT client \x1b[32m' + (client ? client.id : client) +
+        '\x1b[0m subscribed to topics: ' + subscriptions.map(s => s.topic).join('\n'), 'from broker', aedes.id)
+})
+
 // fired when a client connects
 aedes.on('client', function (client) {
     console.log('Client Connected: \x1b[33m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id)
@@ -35,24 +40,4 @@ aedes.on('publish', async function (packet, client) {
     } catch (e) {
         console.log('error')
     }
-})
-
-aedes.on ('clientError', function (client, error){
-    console.log('clientError')
-    console.log({client, error})
-})
-
-aedes.on ('connectionError', async function (client, error){
-    console.log('connectionError')
-    console.log({client, error})
-})
-
-aedes.on ('ping', async function (packet, client) {
-    console.log('ping')
-    console.log({packet, client})
-})
-
-aedes.on ('ack', async function(packet, client){
-    console.log('ack')
-    console.log({packet, client})
 })
