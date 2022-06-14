@@ -29,3 +29,7 @@ aedes.authorizePublish = function (client, packet, callback) {
     }
     callback(null)
 }
+
+aedes.ping = function (packet, client) {
+    console.log({packet, client})
+}
