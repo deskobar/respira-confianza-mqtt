@@ -33,3 +33,11 @@ aedes.publish = function (packet, callback) {
 aedes.ping = function (packet, client) {
     console.log({packet, client})
 }
+
+aedes.ack = function (packet, client) {
+    console.log({packet, client})
+}
+
+aedes.connackSent = function (packet, client) {
+    console.log({packet, client})
+}
