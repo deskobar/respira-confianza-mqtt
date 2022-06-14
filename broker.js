@@ -6,7 +6,7 @@ const port = 1883
 
 server.listen(port, function () {
     console.log('Aedes listening on port:', port)
-    aedes.publish({topic: 'device/sck/+/readings/raw', payload: 'Hello'})
+    aedes.publish({topic: 'device/sck/+/readings/raw', payload: 'Hello'}, (e) => console.log({e}))
 })
 
 aedes.on('subscribe', function (subscriptions, client) {
@@ -19,8 +19,8 @@ aedes.on('client', function (client) {
     console.log('Client Connected: \x1b[33m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id)
 })
 
-aedes.authorizePublish = function (client, packet, callback) {
-    console.log({client, packet})
+aedes.publish = function (packet, callback) {
+    console.log('[publish]', {packet})
     if (packet.topic === 'aaaa') {
         return callback(new Error('wrong topic'))
     }
