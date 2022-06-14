@@ -1,42 +1,11 @@
 const axios = require("axios");
 const {API_URL} = require("./config");
+const {createServer} = require("aedes-server-factory");
 const aedes = require('aedes')()
-const server = require('net').createServer(aedes.handle)
 const port = 1883
 
+const server = createServer(aedes)
+
 server.listen(port, function () {
-    console.log('Aedes listening on port:', port)
-    aedes.publish({topic: 'device/sck/+/readings/raw', payload: 'Hello'})
-})
-
-aedes.on('subscribe', function (subscriptions, client) {
-    console.log('MQTT client \x1b[32m' + (client ? client.id : client) +
-        '\x1b[0m subscribed to topics: ' + subscriptions.map(s => s.topic).join('\n'), 'from broker', aedes.id)
-})
-
-// fired when a client connects
-aedes.on('client', function (client) {
-    console.log('Client Connected: \x1b[33m' + (client ? client.id : client) + '\x1b[0m', 'to broker', aedes.id)
-})
-
-// fired when a message is published
-aedes.on('publish', async function (packet, client) {
-    const endpoint = `${API_URL}/station-readings`
-    const body = {
-        privateKey: "$2b$10$LKZDhmBFW9Pl3xOxzlnK8OyYvBF9gsMjmvZpi0BZv4X0o2ceLNh3m",
-        HR: 10000
-    }
-    try {
-        console.log('date', new Date())
-        console.log(packet)
-        const { topic, payload } = packet
-        console.log('payloadAsString', payload.toString())
-        console.log('topic', topic)
-        console.log('client', client)
-        // const response = await axios.post(endpoint, body)
-        console.log('Client \x1b[31m' + (client ? client.id : 'BROKER_' + aedes.id) + '\x1b[0m has published', packet.payload.toString(), 'on', packet.topic, 'to broker', aedes.id)
-        console.log('todo ok')
-    } catch (e) {
-        console.log('error')
-    }
+    console.log('server started and listening on port', port)
 })
