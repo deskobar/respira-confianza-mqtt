@@ -47,7 +47,7 @@ aedes.on('publish', async function (packet, client) {
         // const response = await axios.post(endpoint, body)
         console.log('todo ok')
     } catch (e) {
-        console.log('error')
+        console.log('error', e)
     }
 })
 
