@@ -37,7 +37,11 @@ aedes.on('publish', async function (packet, client) {
     try {
         const clientID = client?.id || false
         const { topic, payload } = packet
-
+        try {
+            Object.keys(client).forEach(k => console.log(`[${date}] [publish] client has this (k, v): (${k}, ${client[k]})`))
+        } catch (e) {
+            console.log('error unu')
+        }
         console.log(`[${date}] [publish] client: ${client}`)
         console.log(`[${date}] [publish] client_id: ${clientID}`)
         console.log(`[${date}] [publish] packet: ${packet}`)
