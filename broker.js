@@ -33,21 +33,21 @@ aedes.on('clientDisconnect', function (client) {
 // fired when a message is published
 aedes.on('publish', async function (packet, client) {
     const endpoint = `${API_URL}/station-readings`
+    const date = new Date()
     try {
         const clientID = client.id
         const { topic, payload } = packet
-        const date = new Date()
 
-        console.log(`[${date}] client: ${client}`)
-        console.log(`[${date}] client_id: ${clientID}`)
-        console.log(`[${date}] packet: ${packet}`)
-        console.log(`[${date}] topic: ${topic}`)
-        console.log(`[${date}] payload: ${payload}`)
-        console.log(`[${date}] payload_as_string: ${payload.toString()}`)
+        console.log(`[${date}] [publish] client: ${client}`)
+        console.log(`[${date}] [publish] client_id: ${clientID}`)
+        console.log(`[${date}] [publish] packet: ${packet}`)
+        console.log(`[${date}] [publish] topic: ${topic}`)
+        console.log(`[${date}] [publish] payload: ${payload}`)
+        console.log(`[${date}] [publish] payload_as_string: ${payload.toString()}`)
         // const response = await axios.post(endpoint, body)
-        console.log('todo ok')
+        console.log(`[${date}] [publish] Todo ok`)
     } catch (e) {
-        console.log('error', e)
+        console.log(`[${date}] [publish] [error] ${e}`)
     }
 })
 
