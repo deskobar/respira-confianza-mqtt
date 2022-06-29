@@ -35,7 +35,7 @@ aedes.on('publish', async function (packet, client) {
     const endpoint = `${API_URL}/station-readings`
     const date = new Date()
     try {
-        const clientID = client.id
+        const clientID = client?.id || false
         const { topic, payload } = packet
 
         console.log(`[${date}] [publish] client: ${client}`)
