@@ -51,22 +51,3 @@ aedes.on('publish', async function (packet, client) {
     }
 })
 
-aedes.on ('clientError', function (client, error){
-    console.log('clientError')
-    console.log({client, error})
-})
-
-aedes.on ('connectionError', async function (client, error){
-    console.log('connectionError')
-    console.log({client, error})
-})
-
-aedes.on ('ping', async function (packet, client) {
-    console.log('ping')
-    console.log({packet, client})
-})
-
-aedes.on ('ack', async function(packet, client){
-    console.log('ack')
-    console.log({packet, client})
-})
