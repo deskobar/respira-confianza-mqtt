@@ -42,15 +42,19 @@ client.on("message", async (topic, payload) => {
         // https://api.smartcitizen.me/v0/sensors/?per_page=1000
 
         const apiRequiredData = {
-            PRIVATE_KEY: token,
-            TEMP: sensorReadings["55"] || null,
-            PRESS: sensorReadings["58"] || null,
-            HR: sensorReadings["56"] || null,
+            privateKey: token,
+            TEMP: parseInt(sensorReadings["55"] || null),
+            PRESS: parseInt(sensorReadings["58"] || null),
+            HR: parseInt(sensorReadings["56"] || null),
             MP10: sensorReadings["89"] || null,
             MP25: sensorReadings["87"] || null,
+            recorded_at: sensorReadings["t"] || new Date().toString(),
+            updated_at: sensorReadings["t"] || new Date().toString(),
         }
 
-        await sendReadingToAPI(apiRequiredData)
+        const sentSuccessful = await sendReadingToAPI(apiRequiredData)
+
+        console.log({sentSuccessful})
 
     } catch (error) {
         console.log({error})

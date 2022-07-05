@@ -29,8 +29,12 @@ const smartCitizenDataToJSON = value => {
 const sendReadingToAPI = async (data) => {
     const url = `${API_URL}/api/station-readings`
     const r = await axios.post(url, data, {
-        responseType: "json"
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     })
+
     return r.status === 201
 }
 
