@@ -1,3 +1,5 @@
+const {API_URL} = require("./config");
+const axios = require("axios");
 const SMART_CITIZEN_TOPIC_REGEX = new RegExp("device\/sck\/(.*?)\/readings\/raw", 'g')
 
 const isValidTopic = topic => {
@@ -24,6 +26,14 @@ const smartCitizenDataToJSON = value => {
     return jsonData
 }
 
+const sendReadingToAPI = async (data) => {
+    const url = `${API_URL}/api/station-readings`
+    const r = await axios.post(url, data, {
+        responseType: "json"
+    })
+    return r.status === 201
+}
+
 module.exports = {
-    captureTokenFromTopic, smartCitizenDataToJSON, isValidTopic
+    captureTokenFromTopic, smartCitizenDataToJSON, isValidTopic, sendReadingToAPI
 }

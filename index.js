@@ -1,8 +1,5 @@
-const axios = require("axios");
-const {API_URL} = require("./config");
-
 const mqtt = require("mqtt");
-const {captureTokenFromTopic, smartCitizenDataToJSON, isValidTopic} = require("./core");
+const {captureTokenFromTopic, smartCitizenDataToJSON, isValidTopic, sendReadingToAPI} = require("./core");
 
 const host = "broker.emqx.io";
 const port = "1883";
@@ -22,22 +19,27 @@ const client = mqtt.connect(connectUrl, {
 const topic = "device/sck/+/readings/raw";
 
 client.on("connect", () => {
+
     console.log("Connected");
+
     client.subscribe([topic], () => {
         console.log(`Subscribe to topic '${topic}'`);
     });
+
 });
 
-client.on("message", (topic, payload) => {
-    if (!isValidTopic(topic.toString())) return
+client.on("message", async (topic, payload) => {
+
+    const topicIsValid = isValidTopic(topic.toString())
+
+    if (!topicIsValid) return
 
     try {
-        console.log(topic)
         const token = captureTokenFromTopic(topic.toString())
         const decodedPayload = payload.toString()
         const sensorReadings = smartCitizenDataToJSON(decodedPayload)
 
-        // https://api.smartcitizen.me/v0/sensors/?per_page=200
+        // https://api.smartcitizen.me/v0/sensors/?per_page=1000
 
         const apiRequiredData = {
             PRIVATE_KEY: token,
@@ -48,12 +50,10 @@ client.on("message", (topic, payload) => {
             MP25: sensorReadings["87"] || null,
         }
 
-        console.log({sensorReadings, apiRequiredData})
+        await sendReadingToAPI(apiRequiredData)
 
-        // axios.post()
-
-    } catch (e) {
-        console.log({e})
+    } catch (error) {
+        console.log({error})
     }
 
 });
