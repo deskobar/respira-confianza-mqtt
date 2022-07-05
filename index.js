@@ -46,15 +46,15 @@ client.on("message", async (topic, payload) => {
             TEMP: parseInt(sensorReadings["55"] || null),
             PRESS: parseInt(sensorReadings["58"] || null),
             HR: parseInt(sensorReadings["56"] || null),
-            MP10: sensorReadings["89"] || null,
-            MP25: sensorReadings["87"] || null,
+            MP10: Number(sensorReadings["89"] || undefined),
+            MP25: Number(sensorReadings["87"] || undefined),
             recorded_at: sensorReadings["t"] || new Date().toString(),
             updated_at: sensorReadings["t"] || new Date().toString(),
         }
 
         const sentSuccessful = await sendReadingToAPI(apiRequiredData)
 
-        console.log({sentSuccessful})
+        console.log(new Date().toString(), {apiRequiredData, sentSuccessful})
 
     } catch (error) {
         console.log({error})

@@ -11,17 +11,14 @@ const captureTokenFromTopic = value => {
     return value.replace('device/sck/', '').replace('/readings/raw', '')
 }
 
-const smartCitizenDataToJSON = value => {
-    const withoutBrackets = value.replace('{', '').replace('}', '')
-    const keyValues = withoutBrackets.split(',') || []
+const smartCitizenDataToJSON = badJSON => {
+    const withoutBrackets = badJSON.replace('{', '').replace('}', '')
+    const allKeyValues = withoutBrackets.split(',') || []
     let jsonData = {}
-    keyValues.forEach(kv => {
-        if (kv.toString().startsWith('t:')) {
-            jsonData['t'] = kv.toString().replace('t:', '')
-        } else {
-            const [key, value] = kv.split(':')
-            jsonData[key.toString()] = Number(value)
-        }
+    allKeyValues.forEach(kv => {
+        const splitKV = kv.split(/:/)
+        const key = splitKV.shift().toString()
+        jsonData[key] = splitKV.join(':')
     })
     return jsonData
 }
@@ -34,7 +31,6 @@ const sendReadingToAPI = async (data) => {
             'Accept': 'application/json'
         }
     })
-
     return r.status === 201
 }
 
