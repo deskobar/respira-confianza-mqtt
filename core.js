@@ -1,6 +1,12 @@
+const SMARTCITIZEN_TOPIC_REGEX = new RegExp('device\/sck\/(.*?)\/readings\/raw', 'g')
+
+const isValidTopic = topic => {
+    return SMARTCITIZEN_TOPIC_REGEX.test(topic)
+}
+
 const captureTokenFromTopic = topic => {
-    const regex = /device\/sck\/(.*?)\/readings\/raw/g
-    const [_, token] = regex.exec(topic) || [null, null]
+    console.log('exec', SMARTCITIZEN_TOPIC_REGEX.exec(topic))
+    const [_, token] = SMARTCITIZEN_TOPIC_REGEX.exec(topic) || [null, null]
     return token
 }
 
@@ -13,6 +19,7 @@ const isJson = (data) => {
     }
 };
 
+
 module.exports = {
-    captureTokenFromTopic, isJson
+    captureTokenFromTopic, isJson, isValidTopic
 }
