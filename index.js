@@ -37,37 +37,24 @@ client.on("message", (topic, payload) => {
     console.log(`Token: ${token}`)
     console.log(`Payload is JSON: ${payloadIsJSON}`);
 
-    const xd = {}
+    const sensorReadings = {}
 
-    const lala = {
-        "t": "2022-06-29T23:38:02Z",
-        "10": 97,
-        "14": 37,
-        "55": 20.38,
-        "56": 46.41,
-        "53": 50.13,
-        "58": 95.31,
-        "113": 55.00,
-        "112": 763.00,
-        "89": 22,
-        "87": 27,
-        "88": 27
+    // https://api.smartcitizen.me/v0/sensors/?per_page=200
+    // PM1.0 = sensorReadings["89"] || null
+    // PM10 = sensorReadings["88"] || null
+
+    const apiRequiredData = {
+        PRIVATE_KEY: token,
+        TEMP: sensorReadings["55"] || null,
+        PRESS: sensorReadings["58"] || null,
+        HR: sensorReadings["56"] || null,
+        MP10: sensorReadings["89"] || null,
+        MP25: sensorReadings["87"] || null,
     }
 
-    const data = {
-        "timestamp": xd["t"] || null,
-        "battery": xd["10"] || null,
-        "luz": xd["14"] || null,
-        "temperature": xd["55"] || null,
-        "humidity": xd["56"] || null,
-        "latitude": xd["53"] || null,
-        "Horizontal dilution": xd["58"] || null,
-        "Total Volatile Organic Compounds Digital Indoor Sensor": xd["113"] || null,
-        "eCO2": xd["112"] || null,
-        "PM1.0": xd["89"] || null,
-        "PM2.5": xd["87"] || null,
-        "PM10": xd["88"] || null,
-    }
+    console.log({apiRequiredData})
+
+    // axios.post()
 
 });
 
