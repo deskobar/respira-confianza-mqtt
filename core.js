@@ -4,10 +4,9 @@ const isValidTopic = topic => {
     return SMART_CITIZEN_TOPIC_REGEX.test(topic)
 }
 
-const captureTokenFromTopic = topic => {
-    const group = SMART_CITIZEN_TOPIC_REGEX.exec(topic)
-    const [_, token] = group || [null, null]
-    return token
+const captureTokenFromTopic = value => {
+    // Obvio es una pésima manera, pero funciona
+    return value.replace('device/sck/', '').replace('/readings/raw', '')
 }
 
 const smartCitizenDataToJSON = value => {
@@ -24,7 +23,6 @@ const smartCitizenDataToJSON = value => {
     })
     return jsonData
 }
-
 
 module.exports = {
     captureTokenFromTopic, smartCitizenDataToJSON, isValidTopic
